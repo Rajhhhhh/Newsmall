@@ -1,42 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Location Sharing</title>
     <style>
         #map {
-            height: 400px;
+            height: 300px;
             width: 100%;
+        }
+        #shareButton {
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>Live Location Sharing</h1>
     <div id="map"></div>
-    <button onclick="shareLocation()">Share Location</button>
+    <button id="shareButton" onclick="shareLocation()">Share Location on WhatsApp</button>
 
     <script>
-        // Function to initialize Google Map
         function initMap() {
-            var myLatLng = { lat: -25.363, lng: 131.044 }; // Default location
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: myLatLng
-            });
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Your Location'
-            });
+            var myLocation = { lat: 37.7749, lng: -122.4194 };
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 10, center: myLocation });
+            var marker = new google.maps.Marker({ position: myLocation, map: map });
         }
 
-        // Function to share location
         function shareLocation() {
-            // Replace this with your logic to share location on WhatsApp, Facebook, Telegram, etc.
-            alert('Location shared successfully!');
+            // Replace these coordinates with the actual live location coordinates
+            var latitude = 37.7749;
+            var longitude = -122.4194;
+            var url = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+            var whatsappMessage = "Hey! Check out my live location: " + url;
+
+            // Open WhatsApp with the pre-filled message
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(whatsappMessage));
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
 </body>
 </html>
+
+
