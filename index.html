@@ -15,11 +15,19 @@
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            // Create a WhatsApp share link with the location
-            var whatsappMessage = "https://wa.me/?text=My%20current%20location:%20https://www.google.com/maps?q=" + latitude + "," + longitude;
+            // Create a shareable location link
+            var locationLink = "https://www.google.com/maps?q=" + latitude + "," + longitude;
             
-            // Redirect to WhatsApp with the share link
-            window.location.href = whatsappMessage;
+            // Create an input field to copy the location link
+            var tempInput = document.createElement("input");
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = locationLink;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            alert("Location copied to clipboard. You can now paste it in any app to share.");
         }
 
         function showError(error) {
@@ -42,6 +50,6 @@
 </head>
 <body>
     <h2>Live Location Sharing</h2>
-    <button onclick="getLocation()">Share My Location on WhatsApp</button>
+    <button onclick="getLocation()">Share My Location</button>
 </body>
 </html>
