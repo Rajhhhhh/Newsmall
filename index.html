@@ -14,11 +14,12 @@
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-            var accuracy = position.coords.accuracy;
 
-            document.getElementById("latitude").innerHTML = "Latitude: " + latitude;
-            document.getElementById("longitude").innerHTML = "Longitude: " + longitude;
-            document.getElementById("accuracy").innerHTML = "Accuracy: " + accuracy + " meters";
+            // Create a WhatsApp share link with the location
+            var whatsappMessage = "https://wa.me/?text=My%20current%20location:%20https://www.google.com/maps?q=" + latitude + "," + longitude;
+            
+            // Redirect to WhatsApp with the share link
+            window.location.href = whatsappMessage;
         }
 
         function showError(error) {
@@ -41,10 +42,6 @@
 </head>
 <body>
     <h2>Live Location Sharing</h2>
-    <button onclick="getLocation()">Get My Location</button>
-    <p id="latitude"></p>
-    <p id="longitude"></p>
-    <p id="accuracy"></p>
+    <button onclick="getLocation()">Share My Location on WhatsApp</button>
 </body>
 </html>
-
