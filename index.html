@@ -73,12 +73,34 @@
         }
         
         .custom-textbox {
-        margin-top:10px;
             width: 300px;
             height: 40px;
             font-size:20px;
             border-radius:10px;
             background:pink;
+            text-align:center;
+        }
+        .custom-textbox1 {
+            width: 300px;
+            height: 40px;
+            font-size:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+        .custom-textbox2 {
+            width: 300px;
+            height: 40px;
+            font-size:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        .custom-textbox4 {
+        margin-top:10px;
+            width: 300px;
+            height: 40px;
+            font-size:20px;
+            border-radius:10px;
             text-align:center;
         }
         .sc6ut6{
@@ -129,6 +151,12 @@
     </div> <br> <br>
     <center>
     <input type="text" class="custom-textbox">
+    <br>
+        <input type="text" class="custom-textbox1">
+        <br>
+            <input type="text" class="custom-textbox2">
+                <br>
+                    <input type="text" class="custom-textbox4" readonly>
     </center>
     <script>
         function addRow() {
@@ -197,8 +225,25 @@
             sc6ut6.value = (parseFloat(sc6ut4) + parseFloat(sc6ut5)) || 0;
         }
 
+        // Function to update custom-textbox4
+        function updateCustomTextbox4() {
+            var customTextboxValue = parseFloat(document.querySelector('.custom-textbox').value) || 0;
+            var customTextbox1Value = parseFloat(document.querySelector('.custom-textbox1').value) || 0;
+            var customTextbox2Value = parseFloat(document.querySelector('.custom-textbox2').value) || 0;
+            var result = customTextboxValue - customTextbox1Value - customTextbox2Value;
+            document.querySelector('.custom-textbox4').value = result;
+        }
+
         // Call setListeners() once to set initial event listeners
         setListeners();
+        // Call updateCustomTextbox4 initially and add event listeners
+        updateCustomTextbox4();
+        var customTextboxes = document.querySelectorAll('.custom-textbox, .custom-textbox1, .custom-textbox2');
+        customTextboxes.forEach(function(textbox) {
+            textbox.addEventListener('input', updateCustomTextbox4);
+        });
     </script>
 </body>
-</html>
+        </html>
+
+            
