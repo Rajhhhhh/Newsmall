@@ -1,249 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Table</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 0; /* Padding removed */
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        input {
-            width: calc(100% - 10px); /* Adjust width for input padding and border */
-            height: calc(100% - 10px); /* Adjust height for input padding and border */
-            padding: 5px; /* Add padding */
-            box-sizing: border-box; /* Include padding and border in width and height */
-        }
-
-        tr {
-            height: 30px; /* Updated height */
-        }
-
-        .add-button {
-            margin-bottom: 10px;
-        }
-
-        .section {
-            height: 50px; /* Set height to 50px */
-            width: 30%; /* Set width to 30% */
-            float: left; /* Float left */
-            margin: 10px; /* Add some margin */
-        }
-
-        .section1 {
-            background-color: #ffcccc; /* Light red */
-            padding: 10px;
-        }
-
-        .section2 {
-            background-color: #ccccff; /* Light blue */
-            padding: 10px;
-            float: right; /* Float right */
-        }
-
-        #total-sum, #weight-sum {
-            width: 100px;
-            height: 30px;
-            box-sizing: border-box;
-        }
-        .section6{
-        width:100%;
-        background:green;
-        }
-        .sc6u1{
-        width:50%;
-        float:left;
-        }
-        .sc6u2{
-        width:50%;
-        float:left;
-        
-        }
-        
-        .custom-textbox {
-            width: 300px;
-            height: 40px;
-            font-size:20px;
-            border-radius:10px;
-            background:pink;
-            text-align:center;
-        }
-        .custom-textbox1 {
-            width: 300px;
-            height: 40px;
-            font-size:20px;
-            border-radius:10px;
-            text-align:center;
-        }
-        .custom-textbox2 {
-            width: 300px;
-            height: 40px;
-            font-size:20px;
-            border-radius:10px;
-            text-align:center;
-        }
-
-        .custom-textbox4 {
-        margin-top:10px;
-            width: 300px;
-            height: 40px;
-            font-size:20px;
-            border-radius:10px;
-            text-align:center;
-        }
-        .sc6ut6{
-     background:orange;
-        }
-        
-    </style>
+    <title>Data Form</title>
 </head>
 <body>
-    <button class="add-button" onclick="addRow()">Add Row</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Weight</th>
-                <th>Rate</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text" class="number1"></td>
-                <td><input type="text" class="number2"></td>
-                <td><input type="text" class="result" readonly></td>
-            </tr>
-        </tbody>
-    </table>
-    <hr> <!-- Horizontal Rule -->
-    <div class="section section1">
-        Weight Sum: <input type="text" id="weight-sum" readonly>
-    </div> <!-- Div with light red background -->
-    <div class="section section2">
-        Total Sum: <input type="text" id="total-sum" readonly>
-    </div> <!-- Div with light blue background -->
-    <br><br><br><br><br><br>
-    <div class="section6" >
-    <div class="sc6u1" >
-    <input type="text" class="sc6ut1" oninput="calculateSc6u1()"><br><br>
-    <input type="text" class="sc6ut2" oninput="calculateSc6u1()"><br><br>
-    <input type="text" class="sc6ut3" readonly><br>
-    </div>   
-     <div class="sc6u2" >
-    <input type="text" class="sc6ut4" oninput="calculateSc6u2()"><br><br>
-    <input type="text" class="sc6ut5" oninput="calculateSc6u2()"><br><br>
-    <input type="text" class="sc6ut6" readonly><br>
-    </div>
-    </div> <br> <br>
-    <center>
-    <input type="text" class="custom-textbox">
-    <br>
-        <input type="text" class="custom-textbox1">
-        <br>
-            <input type="text" class="custom-textbox2">
-                <br>
-                    <input type="text" class="custom-textbox4" readonly>
-    </center>
+    <h1>Data Form</h1>
+    <form action="dete6.html" method="post" id="dataForm">
+        <label for="name">नाम:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="address">पता:</label>
+        <textarea id="address" name="address" required></textarea><br>
+
+        <label for="mobileNumber">मोबाइल नंबर:</label>
+        <input type="tel" id="mobileNumber" name="mobileNumber" required><br>
+
+        <label for="pincode">पिनकोड:</label>
+        <input type="number" id="pincode" name="pincode" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
     <script>
-        function addRow() {
-            var tableBody = document.getElementById('table-body');
-            var newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text"></td>
-                <td><input type="text" class="number1"></td>
-                <td><input type="text" class="number2"></td>
-                <td><input type="text" class="result" readonly></td>
-            `;
-            tableBody.appendChild(newRow);
-            setListeners(); // Call the function to set event listeners
-        }
+        const dataForm = document.getElementById('dataForm');
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
 
-        function setListeners() {
-            var inputs = document.querySelectorAll('.number1, .number2');
-            inputs.forEach(function(input) {
-                input.addEventListener('input', function() {
-                    var row = input.parentNode.parentNode;
-                    var number1 = parseFloat(row.querySelector('.number1').value);
-                    var number2 = parseFloat(row.querySelector('.number2').value);
-                    var result = row.querySelector('.result');
-                    result.value = (number1 * number2) || 0; // Show 0 if any value is NaN
+        dataForm.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-                    // Update total sum and weight sum
-                    updateTotalSum();
-                    updateWeightSum();
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const pincode = document.getElementById('pincode').value;
+
+            const dataToSave = {
+                name: name,
+                address: address,
+                mobileNumber: mobileNumber,
+                pincode: pincode
+            };
+
+            localStorage.setItem('userData', JSON.stringify(dataToSave));
+            alert('Data Saved Successfully!');
+
+            // Add Delete Button
+            if (!document.getElementById('deleteButton')) {
+                document.body.appendChild(deleteButton);
+                deleteButton.addEventListener('click', function() {
+                    const password = prompt('Enter Password to Delete Data:');
+                    if (password === '12345') {
+                        localStorage.removeItem('userData');
+                        alert('Data Deleted Successfully!');
+                        deleteButton.remove();
+                    } else {
+                        alert('Incorrect Password!');
+                    }
                 });
-            });
-        }
-
-        function updateTotalSum() {
-            var totalSumInput = document.getElementById('total-sum');
-            var results = document.querySelectorAll('.result');
-            var sum = 0;
-            results.forEach(function(result) {
-                sum += parseFloat(result.value) || 0;
-            });
-            totalSumInput.value = sum.toFixed(2);
-        }
-
-        function updateWeightSum() {
-            var weightSumInput = document.getElementById('weight-sum');
-            var weights = document.querySelectorAll('.number1');
-            var sum = 0;
-            weights.forEach(function(weight) {
-                sum += parseFloat(weight.value) || 0;
-            });
-            weightSumInput.value = sum.toFixed(2);
-        }
-
-        // Function to calculate sc6u1
-        function calculateSc6u1() {
-            var sc6ut1 = document.querySelector('.sc6ut1').value;
-            var sc6ut2 = document.querySelector('.sc6ut2').value;
-            var sc6ut3 = document.querySelector('.sc6ut3');
-            sc6ut3.value = (parseFloat(sc6ut1) * parseFloat(sc6ut2)) || 0;
-        }
-
-        // Function to calculate sc6u2
-        function calculateSc6u2() {
-            var sc6ut4 = document.querySelector('.sc6ut4').value;
-            var sc6ut5 = document.querySelector('.sc6ut5').value;
-            var sc6ut6 = document.querySelector('.sc6ut6');
-            sc6ut6.value = (parseFloat(sc6ut4) + parseFloat(sc6ut5)) || 0;
-        }
-
-        // Function to update custom-textbox4
-        function updateCustomTextbox4() {
-            var customTextboxValue = parseFloat(document.querySelector('.custom-textbox').value) || 0;
-            var customTextbox1Value = parseFloat(document.querySelector('.custom-textbox1').value) || 0;
-            var customTextbox2Value = parseFloat(document.querySelector('.custom-textbox2').value) || 0;
-            var result = customTextboxValue - customTextbox1Value - customTextbox2Value;
-            document.querySelector('.custom-textbox4').value = result;
-        }
-
-        // Call setListeners() once to set initial event listeners
-        setListeners();
-        // Call updateCustomTextbox4 initially and add event listeners
-        updateCustomTextbox4();
-        var customTextboxes = document.querySelectorAll('.custom-textbox, .custom-textbox1, .custom-textbox2');
-        customTextboxes.forEach(function(textbox) {
-            textbox.addEventListener('input', updateCustomTextbox4);
+            }
         });
     </script>
 </body>
-        </html>
-
-            
+</html>
