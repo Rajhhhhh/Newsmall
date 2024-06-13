@@ -2,64 +2,34 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Data Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मुख्य पृष्ठ</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Data Form</h1>
-    <form action="dete6.html" method="post" id="dataForm">
-        <label for="name">नाम:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <label for="address">पता:</label>
-        <textarea id="address" name="address" required></textarea><br>
-
-        <label for="mobileNumber">मोबाइल नंबर:</label>
-        <input type="tel" id="mobileNumber" name="mobileNumber" required><br>
-
-        <label for="pincode">पिनकोड:</label>
-        <input type="number" id="pincode" name="pincode" required><br>
-
-        <input type="submit" value="Submit">
-    </form>
-
-    <script>
-        const dataForm = document.getElementById('dataForm');
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-
-        dataForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const mobileNumber = document.getElementById('mobileNumber').value;
-            const pincode = document.getElementById('pincode').value;
-
-            const dataToSave = {
-                name: name,
-                address: address,
-                mobileNumber: mobileNumber,
-                pincode: pincode
-            };
-
-            localStorage.setItem('userData', JSON.stringify(dataToSave));
-            alert('Data Saved Successfully!');
-
-            // Add Delete Button
-            if (!document.getElementById('deleteButton')) {
-                document.body.appendChild(deleteButton);
-                deleteButton.addEventListener('click', function() {
-                    const password = prompt('Enter Password to Delete Data:');
-                    if (password === '12345') {
-                        localStorage.removeItem('userData');
-                        alert('Data Deleted Successfully!');
-                        deleteButton.remove();
-                    } else {
-                        alert('Incorrect Password!');
-                    }
-                });
-            }
-        });
-    </script>
+    <header>
+        <h1>मुख्य पृष्ठ पर आपका स्वागत है</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">मुख्य पृष्ठ</a></li>
+                <li><a href="dete6.php">विवरण पृष्ठ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>फॉर्म भरें</h2>
+            <form action="dete6.php" method="post">
+                <label for="name">नाम:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="message">संदेश:</label>
+                <textarea id="message" name="message" required></textarea><br><br>
+                <input type="submit" value="जमा करें">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 आपकी वेबसाइट</p>
+    </footer>
 </body>
 </html>
