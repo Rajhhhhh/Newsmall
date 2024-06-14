@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Page</title>
+    <title>डेटा पृष्ठ</title>
     <script>
         function displayData() {
-            // Retrieve the form data from localStorage
+            // फॉर्म डेटा को localStorage से प्राप्त करें
             const name = localStorage.getItem('name');
             const email = localStorage.getItem('email');
 
-            // Display the data
-            document.getElementById('nameDisplay').textContent = name;
-            document.getElementById('emailDisplay').textContent = email;
+            // जाँच करें कि डेटा उपलब्ध है या नहीं
+            if (name && email) {
+                // डेटा प्रदर्शित करें
+                document.getElementById('nameDisplay').textContent = name;
+                document.getElementById('emailDisplay').textContent = email;
+            } else {
+                document.getElementById('nameDisplay').textContent = 'कोई डेटा नहीं मिला।';
+                document.getElementById('emailDisplay').textContent = '';
+            }
         }
     </script>
 </head>
 <body onload="displayData()">
-    <h1>Submitted Data</h1>
-    <p><strong>Name:</strong> <span id="nameDisplay"></span></p>
-    <p><strong>Email:</strong> <span id="emailDisplay"></span></p>
+    <h1>प्रस्तुत डेटा</h1>
+    <p><strong>नाम:</strong> <span id="nameDisplay"></span></p>
+    <p><strong>ईमेल:</strong> <span id="emailDisplay"></span></p>
 </body>
 </html>
