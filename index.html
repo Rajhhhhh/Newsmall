@@ -11,10 +11,16 @@
             // फॉर्म डेटा प्राप्त करें
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const timestamp = new Date().toLocaleString();
 
-            // फॉर्म डेटा को localStorage में संग्रहीत करें
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
+            // पहले से संग्रहीत डेटा प्राप्त करें
+            let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+
+            // नया डेटा जोड़ें
+            submissions.push({ name, email, timestamp });
+
+            // अपडेटेड डेटा को localStorage में संग्रहीत करें
+            localStorage.setItem('submissions', JSON.stringify(submissions));
 
             // dete6.html पर पुनःनिर्देशित करें
             window.location.href = 'dete6.html';
