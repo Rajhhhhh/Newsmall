@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page</title>
+    <title>मुख्य पृष्ठ</title>
     <script>
-        function saveData() {
-            // Get the form data
+        function saveData(event) {
+            event.preventDefault(); // फॉर्म की डिफ़ॉल्ट सबमिशन को रोकें
+            
+            // फॉर्म डेटा प्राप्त करें
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
 
-            // Store the form data in localStorage
+            // फॉर्म डेटा को localStorage में संग्रहीत करें
             localStorage.setItem('name', name);
             localStorage.setItem('email', email);
 
-            // Redirect to dete6.html
+            // dete6.html पर पुनःनिर्देशित करें
             window.location.href = 'dete6.html';
         }
     </script>
 </head>
 <body>
-    <h1>Submit Form</h1>
-    <form onsubmit="saveData(); return false;">
-        <label for="name">Name:</label>
+    <h1>फॉर्म सबमिट करें</h1>
+    <form onsubmit="saveData(event);">
+        <label for="name">नाम:</label>
         <input type="text" id="name" name="name" required><br><br>
-        <label for="email">Email:</label>
+        <label for="email">ईमेल:</label>
         <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="सबमिट करें">
     </form>
 </body>
 </html>
