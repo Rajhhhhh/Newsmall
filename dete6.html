@@ -1,88 +1,24 @@
-<?php
-session_start();
-
-$data_file = 'data.txt';
-$stored_data = [];
-
-// Load existing data
-if (file_exists($data_file)) {
-    $stored_data = json_decode(file_get_contents($data_file), true);
-}
-
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['name']) && isset($_POST['message'])) {
-    $new_entry = [
-        'name' => htmlspecialchars($_POST['name']),
-        'message' => htmlspecialchars($_POST['message']),
-        'timestamp' => time()
-    ];
-    $stored_data[] = $new_entry;
-    file_put_contents($data_file, json_encode($stored_data));
-}
-
-// Handle deletion
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete']) && isset($_POST['password'])) {
-    if ($_POST['password'] == '1234') {
-        $stored_data = [];
-        file_put_contents($data_file, json_encode($stored_data));
-        $message = "सभी डेटा सफलतापूर्वक हटाया गया।";
-    } else {
-        $message = "गलत पासवर्ड। कृपया पुनः प्रयास करें।";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>विवरण पृष्ठ</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Data Page</title>
+    <script>
+        function displayData() {
+            // Retrieve the form data from localStorage
+            const name = localStorage.getItem('name');
+            const email = localStorage.getItem('email');
+
+            // Display the data
+            document.getElementById('nameDisplay').textContent = name;
+            document.getElementById('emailDisplay').textContent = email;
+        }
+    </script>
 </head>
-<body>
-    <header>
-        <h1>विवरण पृष्ठ</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">मुख्य पृष्ठ</a></li>
-                <li><a href="dete6.php">विवरण पृष्ठ</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>सभी प्रविष्टियाँ</h2>
-            <?php if (!empty($stored_data)) : ?>
-                <ul>
-                    <?php foreach ($stored_data as $entry) : ?>
-                        <li>
-                            <strong>नाम:</strong> <?= $entry['name'] ?><br>
-                            <strong>संदेश:</strong> <?= $entry['message'] ?><br>
-                            <strong>समय:</strong> <?= date('d-m-Y H:i:s', $entry['timestamp']) ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else : ?>
-                <p>कोई प्रविष्टियाँ नहीं हैं।</p>
-            <?php endif; ?>
-        </section>
-        <section>
-            <h2>डेटा हटाएं</h2>
-            <?php if (isset($message)) : ?>
-                <p><?= $message ?></p>
-            <?php endif; ?>
-            <form action="dete6.php" method="post">
-                <label for="password">पासवर्ड:</label>
-                <input type="password" id="password" name="password" required><br><br>
-                <input type="hidden" name="delete" value="1">
-                <input type="submit" value="हटाएं">
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 आपकी वेबसाइट</p>
-    </footer>
+<body onload="displayData()">
+    <h1>Submitted Data</h1>
+    <p><strong>Name:</strong> <span id="nameDisplay"></span></p>
+    <p><strong>Email:</strong> <span id="emailDisplay"></span></p>
 </body>
 </html>
