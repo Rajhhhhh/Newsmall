@@ -1,107 +1,62 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>मुख्य पृष्ठ</title>
-    <script>
-        function saveData(event) {
-            event.preventDefault(); // फॉर्म की डिफ़ॉल्ट सबमिशन को रोकें
-            
-            // फॉर्म डेटा प्राप्त करें
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const mobile = document.getElementById('mobile').value;
-            const pincode = document.getElementById('pincode').value;
-            const city = document.getElementById('city').value;
-            const state = document.getElementById('state').value;
-            const imageFile = document.getElementById('image').files[0];
-            const timestamp = new Date().toLocaleString();
-
-            // इमेज को पढ़ें और बेस64 में परिवर्तित करें
-            const reader = new FileReader();
-            reader.onloadend = function() {
-                const imageData = reader.result;
-
-                // पहले से संग्रहीत डेटा प्राप्त करें
-                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-
-                // नया डेटा जोड़ें
-                submissions.push({ name, address, mobile, pincode, city, state, imageData, timestamp });
-
-                // अपडेटेड डेटा को localStorage में संग्रहीत करें
-                localStorage.setItem('submissions', JSON.stringify(submissions));
-
-                // dede1.html पर पुनःनिर्देशित करें
-                window.location.href = 'dede1.html';
-            };
-
-            if (imageFile) {
-                reader.readAsDataURL(imageFile);
-            } else {
-                // यदि कोई इमेज नहीं है, तो भी डेटा को संग्रहीत करें
-                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-                submissions.push({ name, address, mobile, pincode, city, state, imageData: null, timestamp });
-                localStorage.setItem('submissions', JSON.stringify(submissions));
-                window.location.href = 'dede1.html';
-            }
-        }
-    </script>
-    <style>
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-        }
-        .form-row .form-group {
-            flex: 1;
-            margin-right: 1rem;
-        }
-        .form-row .form-group:last-child {
-            margin-right: 0;
-        }
-    </style>
+    <title>Form Submission</title>
 </head>
 <body>
-    <h1>फॉर्म सबमिट करें</h1>
-    <form onsubmit="saveData(event);">
-        <div class="form-group">
-            <label for="name">नाम:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="address">पूरा पता:</label>
-            <textarea id="address" name="address" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="mobile">मोबाइल नंबर:</label>
-            <input type="tel" id="mobile" name="mobile" required>
-        </div>
-        <div class="form-group">
-            <label for="pincode">पिन कोड:</label>
-            <input type="text" id="pincode" name="pincode" required>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="city">शहर:</label>
-                <input type="text" id="city" name="city" required>
-            </div>
-            <div class="form-group">
-                <label for="state">राज्य:</label>
-                <input type="text" id="state" name="state" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="image">इमेज अपलोड करें:</label>
-            <input type="file" id="image" name="image" accept="image/*">
-        </div>
-        <input type="submit" value="सबमिट करें">
+    <h1>Upload Image and Submit Form</h1>
+    <form id="dataForm">
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" required><br><br>
+
+        <button type="submit">Submit</button>
     </form>
+
+    <p id="submissionLink"></p>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const pincode = document.getElementById('pincode').value;
+
+            const data = {
+                name: name,
+                address: address,
+                city: city,
+                pincode: pincode
+            };
+
+            localStorage.setItem('formData', JSON.stringify(data));
+
+            const link = document.createElement('a');
+            link.href = '#';
+            link.textContent = 'View Submitted Data';
+            link.onclick = function() {
+                window.open('dete5.html', '_blank');
+                window.open('dete6.html', '_blank');
+            };
+
+            const pTag = document.getElementById('submissionLink');
+            pTag.innerHTML = '';
+            pTag.appendChild(link);
+        });
+    </script>
 </body>
 </html>
