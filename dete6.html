@@ -6,25 +6,30 @@
     <title>डेटा पृष्ठ</title>
     <script>
         function displayData() {
-            // फॉर्म डेटा को localStorage से प्राप्त करें
-            const name = localStorage.getItem('name');
-            const email = localStorage.getItem('email');
+            // सभी फॉर्म डेटा को localStorage से प्राप्त करें
+            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+            const container = document.getElementById('dataContainer');
 
-            // जाँच करें कि डेटा उपलब्ध है या नहीं
-            if (name && email) {
-                // डेटा प्रदर्शित करें
-                document.getElementById('nameDisplay').textContent = name;
-                document.getElementById('emailDisplay').textContent = email;
-            } else {
-                document.getElementById('nameDisplay').textContent = 'कोई डेटा नहीं मिला।';
-                document.getElementById('emailDisplay').textContent = '';
+            // हर डेटा के लिए पंक्ति बनाएं
+            submissions.forEach((submission, index) => {
+                const p = document.createElement('p');
+                p.innerHTML = `नाम: ${submission.name}, ईमेल: ${submission.email}, समय: ${submission.timestamp} <a href="javascript:void(0)" onclick="showDetails(${index})">विवरण देखें</a>`;
+                container.appendChild(p);
+            });
+        }
+
+        function showDetails(index) {
+            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+            const submission = submissions[index];
+
+            if (submission) {
+                alert(`नाम: ${submission.name}\nईमेल: ${submission.email}\nसमय: ${submission.timestamp}`);
             }
         }
     </script>
 </head>
 <body onload="displayData()">
     <h1>प्रस्तुत डेटा</h1>
-    <p><strong>नाम:</strong> <span id="nameDisplay"></span></p>
-    <p><strong>ईमेल:</strong> <span id="emailDisplay"></span></p>
+    <div id="dataContainer"></div>
 </body>
 </html>
