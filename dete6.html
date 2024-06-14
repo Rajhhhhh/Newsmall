@@ -13,7 +13,7 @@
             // हर डेटा के लिए पंक्ति बनाएं
             submissions.forEach((submission, index) => {
                 const p = document.createElement('p');
-                p.innerHTML = `नाम: ${submission.name}, ईमेल: ${submission.email}, समय: ${submission.timestamp} <a href="javascript:void(0)" onclick="showDetails(${index})">विवरण देखें</a>`;
+                p.innerHTML = `नाम: ${submission.name}, पता: ${submission.address}, मोबाइल: ${submission.mobile}, पिन कोड: ${submission.pincode}, शहर: ${submission.city}, राज्य: ${submission.state}, समय: ${submission.timestamp} <a href="javascript:void(0)" onclick="showDetails(${index})">विवरण देखें</a>`;
                 container.appendChild(p);
             });
         }
@@ -23,7 +23,7 @@
             const submission = submissions[index];
 
             if (submission) {
-                alert(`नाम: ${submission.name}\nईमेल: ${submission.email}\nसमय: ${submission.timestamp}`);
+                alert(`नाम: ${submission.name}\nपूरा पता: ${submission.address}\nमोबाइल नंबर: ${submission.mobile}\nपिन कोड: ${submission.pincode}\nशहर: ${submission.city}\nराज्य: ${submission.state}\nसमय: ${submission.timestamp}`);
             }
         }
     </script>
