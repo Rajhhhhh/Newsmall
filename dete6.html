@@ -1,60 +1,28 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>डेटा पृष्ठ</title>
+    <title>Submitted Data</title>
+</head>
+<body>
+    <h1>Submitted Data</h1>
+    <div id="submittedData"></div>
+
     <script>
-        function displayData() {
-            // सभी फॉर्म डेटा को localStorage से प्राप्त करें
-            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-            const container = document.getElementById('dataContainer');
+        const data = JSON.parse(localStorage.getItem('formData'));
 
-            // हर डेटा के लिए पंक्ति बनाएं
-            submissions.forEach((submission, index) => {
-                const p = document.createElement('p');
-                p.innerHTML = `
-                    नाम: ${submission.name}, 
-                    पता: ${submission.address}, 
-                    मोबाइल: ${submission.mobile}, 
-                    पिन कोड: ${submission.pincode}, 
-                    शहर: ${submission.city}, 
-                    राज्य: ${submission.state}, 
-                    समय: ${submission.timestamp} 
-                    <a href="javascript:void(0)" onclick="showDetails(${index})">विवरण देखें</a>
-                `;
-                container.appendChild(p);
-            });
-        }
-
-        function showDetails(index) {
-            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-            const submission = submissions[index];
-
-            if (submission) {
-                const details = `
-                    नाम: ${submission.name}\n
-                    पूरा पता: ${submission.address}\n
-                    मोबाइल नंबर: ${submission.mobile}\n
-                    पिन कोड: ${submission.pincode}\n
-                    शहर: ${submission.city}\n
-                    राज्य: ${submission.state}\n
-                    समय: ${submission.timestamp}
-                `;
-
-                if (submission.imageData) {
-                    alert(details);
-                    const imgWindow = window.open("", "Image", "width=600,height=400");
-                    imgWindow.document.write(`<img src="${submission.imageData}" alt="Image" style="max-width:100%;">`);
-                } else {
-                    alert(details);
-                }
-            }
+        if (data) {
+            const dataDiv = document.getElementById('submittedData');
+            dataDiv.innerHTML = `
+                <p>Name: ${data.name}</p>
+                <p>Address: ${data.address}</p>
+                <p>City: ${data.city}</p>
+                <p>Pincode: ${data.pincode}</p>
+            `;
+        } else {
+            document.getElementById('submittedData').innerHTML = '<p>No data submitted yet.</p>';
         }
     </script>
-</head>
-<body onload="displayData()">
-    <h1>प्रस्तुत डेटा</h1>
-    <div id="dataContainer"></div>
 </body>
 </html>
