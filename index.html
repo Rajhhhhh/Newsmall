@@ -15,19 +15,36 @@
             const pincode = document.getElementById('pincode').value;
             const city = document.getElementById('city').value;
             const state = document.getElementById('state').value;
+            const imageFile = document.getElementById('image').files[0];
             const timestamp = new Date().toLocaleString();
 
-            // पहले से संग्रहीत डेटा प्राप्त करें
-            let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+            // इमेज को पढ़ें और बेस64 में परिवर्तित करें
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                const imageData = reader.result;
 
-            // नया डेटा जोड़ें
-            submissions.push({ name, address, mobile, pincode, city, state, timestamp });
+                // पहले से संग्रहीत डेटा प्राप्त करें
+                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
 
-            // अपडेटेड डेटा को localStorage में संग्रहीत करें
-            localStorage.setItem('submissions', JSON.stringify(submissions));
+                // नया डेटा जोड़ें
+                submissions.push({ name, address, mobile, pincode, city, state, imageData, timestamp });
 
-            // dete6.html पर पुनःनिर्देशित करें
-            window.location.href = 'dete6.html';
+                // अपडेटेड डेटा को localStorage में संग्रहीत करें
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+
+                // dede1.html पर पुनःनिर्देशित करें
+                window.location.href = 'dede1.html';
+            };
+
+            if (imageFile) {
+                reader.readAsDataURL(imageFile);
+            } else {
+                // यदि कोई इमेज नहीं है, तो भी डेटा को संग्रहीत करें
+                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+                submissions.push({ name, address, mobile, pincode, city, state, imageData: null, timestamp });
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+                window.location.href = 'dede1.html';
+            }
         }
     </script>
     <style>
@@ -79,6 +96,10 @@
                 <label for="state">राज्य:</label>
                 <input type="text" id="state" name="state" required>
             </div>
+        </div>
+        <div class="form-group">
+            <label for="image">इमेज अपलोड करें:</label>
+            <input type="file" id="image" name="image" accept="image/*">
         </div>
         <input type="submit" value="सबमिट करें">
     </form>
