@@ -1,28 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submitted Data</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>बटन गेम</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #ffffff; /* सफेद रंग */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .button {
+        background-color: green; /* शुरुआत में हरा रंग */
+        border: none;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+        position: absolute; /* अंतिम स्थान सुनिश्चित करने के लिए */
+        width: 20px; /* आकार */
+        height: 20px; /* आकार */
+        transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease; /* संकेत */
+    }
+    
+    .button:hover {
+        background-color: red; /* होवर पर लाल रंग */
+    }
+    
+    .button span {
+        display: none; /* क्लिक पर टेक्स्ट छुपाएं */
+    }
+    
+    .hidden {
+        display: none;
+    }
+</style>
 </head>
 <body>
-    <h1>Submitted Data</h1>
-    <div id="submittedData"></div>
 
-    <script>
-        const data = JSON.parse(localStorage.getItem('formData'));
+<button id="myButton" class="button" onclick="moveButton()"></button>
 
-        if (data) {
-            const dataDiv = document.getElementById('submittedData');
-            dataDiv.innerHTML = `
-                <p>Name: ${data.name}</p>
-                <p>Address: ${data.address}</p>
-                <p>City: ${data.city}</p>
-                <p>Pincode: ${data.pincode}</p>
-            `;
-        } else {
-            document.getElementById('submittedData').innerHTML = '<p>No data submitted yet.</p>';
+<script>
+    let timer;
+    let startTime;
+    let clickCount = 0;
+    const gameDuration = 30000; // 30 seconds in milliseconds
+    
+    function moveButton() {
+        const button = document.getElementById('myButton');
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+        
+        // Randomize button size between 10px and 20px
+        const buttonSize = Math.floor(Math.random() * (20 - 10 + 1)) + 10; // आकार बदलने के लिए
+        
+        // Generate random position for button
+        const randomX = Math.floor(Math.random() * (windowWidth - buttonSize));
+        const randomY = Math.floor(Math.random() * (windowHeight - buttonSize));
+        
+        // Set new size and position
+        button.style.width = buttonSize + 'px';
+        button.style.height = buttonSize + 'px';
+        button.style.left = randomX + 'px';
+        button.style.top = randomY + 'px';
+        
+        // Start timer if not already started
+        if (!timer) {
+            startTime = Date.now();
+            timer = setInterval(checkTime, 1000);
         }
-    </script>
+        
+        // Increment click count
+        clickCount++;
+    }
+    
+    function checkTime() {
+        const elapsedTime = Date.now() - startTime;
+        if (elapsedTime >= gameDuration) {
+            endGame();
+        }
+    }
+    
+    function endGame() {
+        clearInterval(timer);
+        timer = null;
+        
+        // Show popup with click count
+        alert(`खेल समाप्त हुआ! आपने ${clickCount} बार बटन को क्लिक किया।`);
+    }
+</script>
+
 </body>
 </html>
